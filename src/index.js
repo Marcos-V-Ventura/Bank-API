@@ -1,6 +1,6 @@
 let express = require("express")
 let app = express();
-let router = require("./rotas")
+let router = require("./routes")
 
 app.use(express.json())
 
