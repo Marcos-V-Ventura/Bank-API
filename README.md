@@ -1,13 +1,13 @@
 ## 💻 Sobre o projeto
 
-📄 Cubos Bank - é uma API REST de sistema bancário.
+🏦  Cubos Bank - é uma API REST de sistema bancário.
 
 
 Projeto desenvolvido como desafio de código no módulo 2 da **[Turma 07]** de [ [Desenvolvimento de Software](https://cubos.academy/cursos/desenvolvimento-de-software-v2) | [On Demand](https://cubos.academy/cubosondemand) ] oferecida pela [Cubos Academy](https://cubos.academy/).
 
 ---
 
-## 🛣️ Como executar o projeto
+## ⚙️ Como executar o projeto
 
 ### Pré-requisitos
 
@@ -19,10 +19,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ```bash
 # Clone este repositório
-$ git clone git@github.com:Marcos-V-Ventura/desafio-backend-modulo-02-sistema-bancario-b2b-ifood-t07.git
+$ git clone git@github.com:Marcos-V-Ventura/Cubos-Bank-API.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd cubos-bank-api
+$ cd Cubos-Bank-Api
 
 # Instale as dependências
 $ npm install
@@ -33,7 +33,7 @@ $ npm run dev
 # O servidor inciará na porta:3000 - acesse http://localhost:3000 
 ```
 
-## Endpoints
+## 🛣️ Endpoints
 
 ### Listar contas bancárias
 
@@ -217,6 +217,6 @@ Esse endpoint deverá listar as transações realizadas de uma conta específica
 3. Salve as alterações e crie uma mensagem de commit contando o que você fez: `git commit -m "feature: My new feature"`
 4. Envie as suas alterações: `git push origin my-feature`
 
-[Entre em contato!](https://www.linkedin.com/in/marcos-v-ventura/)
+📱 [Entre em contato!](https://www.linkedin.com/in/marcos-v-ventura/)
 
 ###### tags: `back-end` `nodeJS` `API REST` `desafio`
