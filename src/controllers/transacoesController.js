@@ -1,18 +1,19 @@
 let bancodedados = require("../bancodedados")
 let utils = require("../helpers/utils")
+let errorMessages = require("../helpers/errorMessages") 
 
 function depositar(req, res) {
     let { numero_conta, valor } = req.body;
     let usuarioDeposito = utils.encontrarUsuario(numero_conta)
 
     if (!numero_conta || !valor)
-        return res.status(400).json({ mensagem: "O número da conta e o valor são obrigatórios!" })
+        return res.status(400).json({ mensagem: errorMessages.camposDepositarObrigatorios })
 
     if (!usuarioDeposito)
-        return res.status(404).json({ mensagem: "Conta bancária não encontrada" })
+        return res.status(404).json({ mensagem: errorMessages.contaNaoEncontrada })
 
     if (valor <= 0)
-        return res.status(400).json({ mensagem: "Valor de depósito muito baixo. Favor informar um valor maior." })
+        return res.status(400).json({ mensagem: errorMessages.valorMinimo })
 
     usuarioDeposito.saldo += valor;
     bancodedados.depositos.push(utils.criarExtratoDepositoSaque(numero_conta, valor))
@@ -25,16 +26,16 @@ function sacar(req, res) {
     let usuarioSacar = utils.encontrarUsuario(numero_conta)
 
     if (!usuarioSacar)
-        return res.status(404).json({ mensagem: "Conta bancária não encontrada" })
+        return res.status(404).json({ mensagem: errorMessages.contaNaoEncontrada })
 
     if (!numero_conta || !valor || !senha)
-        return res.status(400).json({ mensagem: "O número da conta, valor e senha são obrigatórios!" })
+        return res.status(400).json({ mensagem: errorMessages.camposSacarObrigatorios })
 
     if (usuarioSacar.usuario.senha !== senha)
-        return res.status(400).json({ mensagem: "Senha inválida." })
+        return res.status(403).json({ mensagem: errorMessages.senhaUsuarioInvalida })
 
     if (usuarioSacar.saldo < valor)
-        return res.status(400).json({ mensagem: "Saldo insuficiente." })
+        return res.status(400).json({ mensagem: errorMessages.saldoInsuficiente })
 
     usuarioSacar.saldo -= valor;
     bancodedados.saques.push(utils.criarExtratoDepositoSaque(numero_conta, valor))
@@ -49,22 +50,22 @@ function transferir(req, res) {
     let contaDestino = utils.encontrarUsuario(numero_conta_destino)
 
     if (!numero_conta_origem || !numero_conta_destino || !valor || !senha)
-        return res.status(400).json({ mensagem: "numero_conta_origem, numero_conta_destino, valor e senha são obrigatórios!" })
+        return res.status(400).json({ mensagem: errorMessages.camposTransferirObrigatorios })
 
-    if (!contaOrigem) return res.status(404).json({ mensagem: "Conta de origem não encontrada" })
+    if (!contaOrigem) return res.status(404).json({ mensagem: errorMessages.contaOrigemInexistente })
 
-    if (!contaDestino) return res.status(404).json({ mensagem: "Conta de destino não encontrada" })
+    if (!contaDestino) return res.status(404).json({ mensagem: errorMessages.contaDestinoInexistente })
 
     if (contaOrigem.usuario.senha !== senha)
-        return res.status(400).json({ mensagem: "Senha inválida." })
+        return res.status(403).json({ mensagem: errorMessages.senhaUsuarioInvalida })
 
-    if (valor <= 0) return res.status(400).json({ mensagem: "Valor de depósito muito baixo. Favor informar um valor maior." })
+    if (valor <= 0) return res.status(400).json({ mensagem: errorMessages.valorMinimo })
 
     if (contaOrigem.saldo < valor)
-        return res.status(400).json({ mensagem: "Saldo insuficiente." })
+        return res.status(400).json({ mensagem: errorMessages.saldoInsuficiente })
 
     if (contaOrigem === contaDestino)
-        return res.status(400).json({ mensagem: "Não é possível transferir para a própria conta." })
+        return res.status(400).json({ mensagem: errorMessages.transferenciaPropriaConta })
 
     contaOrigem.saldo -= valor;
     contaDestino.saldo += valor;
@@ -78,12 +79,12 @@ function saldo(req, res) {
     let contaSaldo = utils.encontrarUsuario(numero_conta)
 
     if (!numero_conta || !senha)
-        return res.status(400).json({ mensagem: "Senha e numero_conta são obrigatórios." })
+        return res.status(400).json({ mensagem: errorMessages.camposSaldoExtratoObrigatorios })
 
-    if (!contaSaldo) return res.status(404).json({ mensagem: "Conta bancária não encontrada" })
+    if (!contaSaldo) return res.status(404).json({ mensagem: errorMessages.contaNaoEncontrada })
 
     if (contaSaldo.usuario.senha !== senha)
-        return res.status(400).json({ mensagem: "Senha incorreta." })
+        return res.status(403).json({ mensagem: errorMessages.senhaUsuarioInvalida })
 
     return res.status(200).json({ saldo: contaSaldo.saldo })
 }

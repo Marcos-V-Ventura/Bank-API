@@ -35,4 +35,4 @@ function EmailOuCpfRepetido(numeroConta, email, cpf) {
         return bancodedados.contas.some(element => (element.usuario.email === email || element.usuario.cpf === cpf) && element.numero !== numeroConta)
 }
 
-module.exports = { pegarDataAgora, criarExtratoDepositoSaque, criarExtratoTransferencia, encontrarUsuario, EmailOuCpfRepetido }
+module.exports = { pegarDataAgora, criarExtratoDepositoSaque, criarExtratoTransferencia, encontrarUsuario, EmailOuCpfRepetido}

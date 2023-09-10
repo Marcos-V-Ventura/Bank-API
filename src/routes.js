@@ -1,9 +1,9 @@
 let { Router } = require("express")
-let router = Router()
-
 let usuarios = require("./middleware/usuarios")
 let { listarContas, criarContaBancaria, atualizarUsuario, excluirConta, extrato } = require("./controllers/contasController")
 let { depositar, sacar, transferir, saldo } = require("./controllers/transacoesController")
+
+let router = Router()
 
 router.get("/contas", listarContas)
 router.get("/contas/saldo", saldo)

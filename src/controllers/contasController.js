@@ -1,25 +1,27 @@
 let bancodedados = require("../bancodedados")
 let utils = require("../helpers/utils")
+let errorMessages = require("../helpers/errorMessages") 
+let idContaNova = (bancodedados.contas.length + 1)
 
 function listarContas(req, res) {
     let { senha_banco } = req.query;
 
-    if (!senha_banco) return res.status(400).json({ mensagem: "Senha não informada" })
+    if (!senha_banco) return res.status(400).json({ mensagem: errorMessages.senhaObrigatoria })
 
-    if (senha_banco !== "Cubos123Bank") return res.status(400).json({ mensagem: "Senha incorreta" })
+    if (senha_banco !== "Cubos123Bank") return res.status(403).json({ mensagem: errorMessages.senhaBancoInvalida })
 
     return res.status(200).json(bancodedados.contas)
 }
 
 function criarContaBancaria(req, res) {
     let { nome, cpf, data_nascimento, telefone, senha, email } = req.body
-    let idContaNova = (bancodedados.contas.length + 1).toString()
+
 
     if (utils.EmailOuCpfRepetido(email, email, cpf))
-        return res.status(406).json({ mensagem: "Já existe uma conta com o cpf ou e-mail informado!" })
+        return res.status(406).json({ mensagem: errorMessages.contaExistente })
 
     bancodedados.contas.push({
-        numero: idContaNova,
+        numero: (idContaNova++).toString(),
         saldo: 0,
         usuario: { nome, cpf, data_nascimento, telefone, senha, email }
     })
@@ -33,10 +35,10 @@ function atualizarUsuario(req, res) {
     let usuarioAtualizado = utils.encontrarUsuario(numeroConta);
 
     if (!usuarioAtualizado)
-        return res.status(404).json({ mensagem: "Conta bancária não encontrada" })
+        return res.status(404).json({ mensagem: errorMessages.contaNaoEncontrada })
 
     if (utils.EmailOuCpfRepetido(numeroConta, email, cpf))
-        return res.status(406).json({ mensagem: "Já existe uma conta com o CPF ou e-mail informado!" })
+        return res.status(406).json({ mensagem: errorMessages.contaExistente })
 
     usuarioAtualizado.usuario = { nome, cpf, data_nascimento, telefone, senha, email }
 
@@ -48,10 +50,10 @@ function excluirConta(req, res) {
     let usuarioExcluido = utils.encontrarUsuario(numeroConta)
 
     if (!usuarioExcluido)
-        return res.status(404).json({ mensagem: "Conta bancária não encontrada" })
+        return res.status(404).json({ mensagem: errorMessages.contaNaoEncontrada })
 
     if (usuarioExcluido.saldo !== 0)
-        return res.status(400).json({ mensagem: "A conta só pode ser removida se o saldo for zero!" })
+        return res.status(400).json({ mensagem: errorMessages.saldoNaoZero })
 
     bancodedados.contas = bancodedados.contas.filter(element => element.numero !== numeroConta)
 
@@ -63,12 +65,12 @@ function extrato(req, res) {
     let contaExtrato = utils.encontrarUsuario(numero_conta)
 
     if (!numero_conta || !senha)
-        return res.status(400).json({ mensagem: "Senha e numero_conta são obrigatórios." })
+        return res.status(400).json({ mensagem: errorMessages.camposSaldoExtratoObrigatorios })
 
-    if (!contaExtrato) return res.status(404).json({ mensagem: "Conta bancária não encontrada" })
+    if (!contaExtrato) return res.status(404).json({ mensagem: errorMessages.contaNaoEncontrada })
 
     if (contaExtrato.usuario.senha !== senha)
-        return res.status(400).json({ mensagem: "Senha incorreta." })
+        return res.status(403).json({ mensagem: errorMessages.senhaUsuarioInvalida })
 
     let movimentacaoBanco = {
         depositos: bancodedados.depositos.filter(element => element.numero_conta === numero_conta),
