@@ -1,7 +1,7 @@
-## 💻 Sobre o projeto
+# 🏦 Cubos Bank API
 
-🏦  Cubos Bank - é uma API REST de sistema bancário.
-
+Cubos Bank - é uma API REST de sistema bancário.
+Ela fornece uma solução para a gestão de contas bancárias e transações financeiras. Permitindo que os usuários realizem várias operações bancárias, como criar contas, consultar saldos, fazer depósitos, sacar dinheiro, transferências e visualizar extratos.
 
 Projeto desenvolvido como desafio de código no módulo 2 da **[Turma 07]** de [ [Desenvolvimento de Software](https://cubos.academy/cursos/desenvolvimento-de-software-v2) | [On Demand](https://cubos.academy/cubosondemand) ] oferecida pela [Cubos Academy](https://cubos.academy/).
 
