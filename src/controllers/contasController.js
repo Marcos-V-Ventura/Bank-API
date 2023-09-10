@@ -1,6 +1,6 @@
 let bancodedados = require("../bancodedados")
 let utils = require("../helpers/utils")
-let errorMessages = require("../helpers/errorMessages") 
+let errorMessages = require("../helpers/errorMessages")
 let idContaNova = (bancodedados.contas.length + 1)
 
 function listarContas(req, res) {

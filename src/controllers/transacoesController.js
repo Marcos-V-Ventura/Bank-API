@@ -1,6 +1,6 @@
 let bancodedados = require("../bancodedados")
 let utils = require("../helpers/utils")
-let errorMessages = require("../helpers/errorMessages") 
+let errorMessages = require("../helpers/errorMessages")
 
 function depositar(req, res) {
     let { numero_conta, valor } = req.body;
