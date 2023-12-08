@@ -1,9 +1,7 @@
-# 🏦 Cubos Bank API
+# 🏦 Bank API
 
-Cubos Bank - é uma API REST de sistema bancário.
+Bank API - é uma API REST de sistema bancário.
 Ela fornece uma solução para a gestão de contas bancárias e transações financeiras. Permitindo que os usuários realizem várias operações bancárias, como criar contas, consultar saldos, fazer depósitos, sacar dinheiro, transferências e visualizar extratos.
-
-Projeto desenvolvido como desafio de código no módulo 2 da **[Turma 07]** de [ [Desenvolvimento de Software](https://cubos.academy/cursos/desenvolvimento-de-software-v2) | [On Demand](https://cubos.academy/cubosondemand) ] oferecida pela [Cubos Academy](https://cubos.academy/).
 
 ---
 
@@ -19,10 +17,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ```bash
 # Clone este repositório
-$ git clone git@github.com:Marcos-V-Ventura/Cubos-Bank-API.git
+$ git clone git@github.com:Marcos-V-Ventura/Bank-API.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd Cubos-Bank-Api
+$ cd Bank-Api
 
 # Instale as dependências
 $ npm install
